@@ -1,12 +1,16 @@
-import {
-  ContactFormList,
-  ContactFormItem,
-  ContactFormText,
-  ContactFormDeleteBtn,
-} from './ContactList.styled';
+import { Wrap } from './ContactList.styled';
 import propTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteContact, getFilter, getItem } from 'redux/contactSlice';
+import * as React from 'react';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import Typography from '@mui/material/Typography';
+import { Button } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export const ContactList = () => {
   const dispatch = useDispatch();
@@ -22,21 +26,52 @@ export const ContactList = () => {
 
   return (
     <>
-      <ContactFormList>
-        {list.map(contact => (
-          <ContactFormItem key={contact.id}>
-            <ContactFormText>
-              {contact.name}: {contact.number}
-            </ContactFormText>
-            <ContactFormDeleteBtn
-              name={contact.id}
-              onClick={e => dispatch(deleteContact(e.target.name))}
-            >
-              Delete
-            </ContactFormDeleteBtn>
-          </ContactFormItem>
-        ))}
-      </ContactFormList>
+      <Wrap>
+        <List
+          sx={{
+            width: 400,
+            maxWidth: 460,
+            bgcolor: 'background.paper',
+          }}
+        >
+          {list.map(contact => (
+            <ListItem alignItems="flex-start" key={contact.id}>
+              <ListItemAvatar>
+                <Avatar
+                  alt={contact.name}
+                  src="https://cdn-icons-png.flaticon.com/512/5480/5480725.png"
+                />
+              </ListItemAvatar>
+              <ListItemText
+                primary={contact.name}
+                secondary={
+                  <React.Fragment>
+                    <Typography
+                      sx={{ display: 'inline' }}
+                      component="span"
+                      variant="body2"
+                      color="text.primary"
+                    >
+                      {contact.number}
+                    </Typography>
+                  </React.Fragment>
+                }
+              />
+              <Button
+                sx={{
+                  top: '10px',
+                }}
+                name={contact.id}
+                onClick={e => dispatch(deleteContact(e.target.name))}
+                variant="outlined"
+                startIcon={<DeleteIcon />}
+              >
+                Delete
+              </Button>
+            </ListItem>
+          ))}
+        </List>
+      </Wrap>
     </>
   );
 };

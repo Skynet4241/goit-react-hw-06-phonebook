@@ -1,5 +1,10 @@
 import styled from 'styled-components';
 
+export const Wrap = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 export const ContactFormList = styled.ul`
   display: flex;
   flex-direction: column;
@@ -35,6 +40,8 @@ export const ContactFormDeleteBtn = styled.button`
   border-radius: 4px;
   box-shadow: 0px 4px 4px rgb(0 0 0 / 15%);
   cursor: pointer;
+  position: relative;
+  top: 18px;
 
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   &:hover,
