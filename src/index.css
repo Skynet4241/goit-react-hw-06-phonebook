@@ -29,3 +29,15 @@ p {
   width: 350px;
 }
 
+.css-hhvo2v-MuiListItem-root:not(:last-child)::after
+{
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #adaaaa;
+  
+}
