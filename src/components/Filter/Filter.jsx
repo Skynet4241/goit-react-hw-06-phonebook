@@ -1,21 +1,26 @@
 import { FilterField, FilterLabel, FilterInput } from './Filter.styled';
-import propTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { filterContact, getFilter } from 'redux/contactSlice';
 
-export const Filter = ({ filter, filterHandler }) => (
-  <FilterField>
-    <FilterLabel htmlFor="filter">Find contacts by Name</FilterLabel>
-    <FilterInput
-      type="text"
-      id="filter"
-      name="name"
-      placeholder="Enter filter"
-      onChange={filterHandler}
-      value={filter}
-    ></FilterInput>
-  </FilterField>
-);
+export const Filter = () => {
+  const dispatch = useDispatch();
+  const filter = useSelector(getFilter);
 
-Filter.propTypes = {
-  filter: propTypes.string.isRequired,
-  filterHandler: propTypes.func.isRequired,
+  return (
+    <>
+      <FilterField>
+        <FilterLabel htmlFor="filter">Find contacts by Name</FilterLabel>
+        <FilterInput
+          type="text"
+          id="filter"
+          name="name"
+          placeholder="Enter filter"
+          onChange={e =>
+            dispatch(filterContact(e.target.value.toLocaleLowerCase()))
+          }
+          value={filter}
+        ></FilterInput>
+      </FilterField>
+    </>
+  );
 };
